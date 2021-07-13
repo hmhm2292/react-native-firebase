@@ -1,5 +1,18 @@
 package io.invertase.firebase.messaging;
 
+// For Aiqua sdk
+import android.content.Context;
+import android.content.Intent;
+import android.content.ComponentName;
+import androidx.core.app.JobIntentService;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.quantumgraph.sdk.NotificationJobIntentService;
+import com.quantumgraph.sdk.QG;
+//_______
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -26,6 +39,8 @@ public class ReactNativeFirebaseMessagingService extends FirebaseMessagingServic
 
   @Override
   public void onNewToken(String token) {
+    Log.d("RNFirebaseMsgReceiver", token);
+    QG.logFcmId(getApplicationContext());
     ReactNativeFirebaseEventEmitter emitter = ReactNativeFirebaseEventEmitter.getSharedInstance();
     emitter.sendEvent(ReactNativeFirebaseMessagingSerializer.newTokenToTokenEvent(token));
   }
